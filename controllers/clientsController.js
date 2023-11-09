@@ -1,5 +1,6 @@
 const Client = require('../model/Client');
 
+
 const getAllClients = async (req, res) => {
     const clients = await Client.find();
     if (!clients) return res.status(204).json( {"message": "No client found"} )

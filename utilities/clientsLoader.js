@@ -1,10 +1,7 @@
 const readXlsxFile = require('read-excel-file/node');
-// const { clientsSchema } = require('./clientsSchema');
 const path = require("path");
-const fsPromises = require('fs').promises;
-const clientsData = require('./clientsData.json');
 const Client = require('../model/Client');
-const arrrows2arrobj = require('../utilities/arrrows2arrobj');
+const arrrows2arrobj = require('./arrrows2arrobj');
 
 
 // -- Load clients data from an Excel file into DB --

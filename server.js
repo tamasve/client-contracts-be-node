@@ -1,7 +1,7 @@
 /**
- * THE BACK-END PART OF MY 1st main JS full-stack project
- * 26-27, 5 Nov Oct 2023
- * Last mod.: 5 Nov 2023
+ * THE BACK-END PART OF my 1st main JS full-stack project
+ * 26-27, 8-9 Nov Oct 2023
+ * Last mod.: 9 Nov 2023
  */
 
 require('dotenv').config();
@@ -47,7 +47,9 @@ app.use(cookieParser());
 app.use('^/$', (req, res) => res.status(200).send("Root page"));
 app.use('/clients', require('./routes/api/clients'));
 app.use('/contracts', require('./routes/api/contracts'));
-// app.use("*", (req, res) => res.status(403).send("URL not found"));
+app.use('/users', require('./routes/api/users'));
+app.use('/roles', require('./routes/api/roles'));
+app.all("*", (req, res) => res.status(404).json({ error: "404 Not Found" }));
 
 
 // -- After DB CONNECTION, SERVER START...
