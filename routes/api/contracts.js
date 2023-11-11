@@ -4,10 +4,10 @@ const contractsController = require('../../controllers/contractsController');
 
 router.get("/", contractsController.getAllContracts);
 
-router.post("/new", clientsController.createNewContract);
+router.post("/new", contractsController.createNewContract);
 
-router.route("/update/:id").put(clientsController.updateContract);
+router.route("/update/:id").put(contractsController.updateContract);
 
-router.route("/delete/:id").delete(clientsController.deleteContract);
+router.route("/delete/:id").delete(contractsController.deleteContract);
 
 module.exports = router

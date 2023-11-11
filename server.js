@@ -15,8 +15,8 @@ const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const credentials = require('./middleware/credentials');
 
-const clientsLoader = require('./data/clientsLoader');
-const contractsLoader = require('./data/contractsLoader');
+const clientsLoader = require('./utilities/clientsLoader');
+const contractsLoader = require('./utilities/contractsLoader');
 const mongoose = require("mongoose");
 const connectDB = require('./config/dbConn');
 
