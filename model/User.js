@@ -10,12 +10,15 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    roles: {
-        Read: {
-        type: Number,
-        default: 7700
-        }
+    email: {
+        type: String,
+        required: true
     },
+    active: {
+        type: Boolean,
+        required: true
+    },
+    roles: Object,
     requestToken: String
 });
 

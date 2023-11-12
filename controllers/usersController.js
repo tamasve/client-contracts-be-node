@@ -10,14 +10,14 @@ const getAllUsers = async (req, res) => {
 const createNewUser = async (req, res) => {
     console.log("new user into DB...")
     console.log(req.body);      // the new user data (check)
-    const {username, password, roles} = req.body;  // extract user object from req. body
+    const {username, password, email, roles} = req.body;  // extract user object from req. body
     
-    const canSave = [username, password, roles].every(Boolean)
+    const canSave = [username, password, email, roles].every(Boolean)
     if (!canSave) return res.status(400).json({'message': 'Every user property should be filled out'})
     
     try {
         const result = await User.create(
-            {username, password, roles}
+            {username, password, email, active: false, roles}
         );
         res.status(201).json(result);
     } catch (err) {
