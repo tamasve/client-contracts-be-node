@@ -1,7 +1,7 @@
 /**
  * THE BACK-END PART OF my 1st main JS full-stack project
- * 26-27, 8-12 Nov Oct 2023
- * Last mod.: 12 Nov 2023
+ * 26-27 Oct, 8-13 Nov 2023
+ * Last mod.: 13 Nov 2023
  */
 
 require('dotenv').config();
@@ -44,12 +44,19 @@ app.use(cookieParser());
 
 // -- ROUTES --
 
+// Non-authenticated routes
+
 app.use('^/$', (req, res) => res.status(200).send("Root page"));
-app.use('/clients', require('./routes/api/clients'));
-app.use('/contracts', require('./routes/api/contracts'));
-app.use('/users', require('./routes/api/users'));
-app.use('/roles', require('./routes/api/roles'));
-app.all("*", (req, res) => res.status(404).json({ error: "404 Not Found" }));
+app.use('/auth', require('./routes/auth'));
+app.use('/refresh', require('./routes/refresh'));
+
+// Authenticated routes
+
+app.use('/clients', require('./routes/clients'));
+app.use('/contracts', require('./routes/contracts'));
+app.use('/users', require('./routes/users'));
+app.use('/roles', require('./routes/roles'));
+app.all("*", (req, res) => res.status(404).json({ error: "404 Page or Data Not Found" }));
 
 
 // -- After DB CONNECTION, SERVER START...

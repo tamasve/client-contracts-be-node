@@ -19,7 +19,7 @@ const userSchema = new Schema({
         required: true
     },
     roles: Object,
-    requestToken: String
+    refreshToken: String
 });
 
 module.exports = mongoose.model('User', userSchema);
