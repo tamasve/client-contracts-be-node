@@ -6,6 +6,7 @@ const User = require('../model/User');
 const handleLogin = async (req, res) => {
 
     console.log(req.body);
+    console.log("object read")
     if (!req.body.UserAuth) return res.status(400).json({message: "User authentication info is missing"});
 
     const {username, password} = req.body.UserAuth;
@@ -39,10 +40,7 @@ const handleLogin = async (req, res) => {
     const result = await user.save();
     console.log(result);
 
-    res.cookie('jwt', refreshToken,
-        { httpOnly: true, sameSite: 'None', /*secure: true,*/ maxAge: 24*60*60*1000 });
-    res.cookie('happy', 'everyone');
-    console.log("cookie created")
+    res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 3600000 });
     
     // send access token to FE
     res.status(200).json({accessToken});

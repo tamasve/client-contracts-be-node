@@ -5,10 +5,11 @@ const User = require('../model/User');
 
 const handleLogout = async (req, res) => {
 
-    if (!req.cookies?.jwt) return res.status(400).json({message: "User authentication info is missing"});
+    console.log("cookies received:")
     console.log(req.cookies)
+
+    if (!req.cookies?.jwt) return res.status(400).json({message: "User authentication info is missing"});
     const refreshToken = req.cookies.jwt;
-    console.log(refreshToken);
 
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
 

@@ -4,11 +4,12 @@ const User = require('../model/User');
 
 
 const handleRefreshToken = async (req, res) => {
+
+    console.log("cookies received:")
     console.log(req.cookies)
+
     if (!req.cookies?.jwt) return res.status(400).json({message: "User authentication info is missing"});
-    console.log(req.cookies)
     const refreshToken = req.cookies.jwt;
-    console.log(refreshToken);
 
     const user = await User.findOne({refreshToken}).exec();
     if (!user) return res.status(401).json({message: "No such authenticated user"});

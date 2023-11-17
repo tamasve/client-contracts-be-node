@@ -8,7 +8,7 @@ const corsOptions = {
         console.log(`request origin: ${origin}`)
         if (allowedOrigins.indexOf(origin) !== -1 || !origin)  callback(null, true);     // origin is on the whitelist OR origin = undefined
         // else callback(new Error("Not allowed by CORS"));
-        else callback("URL not allowed by CORS", false);
+        else {console.log("false"); callback("URL not allowed by CORS", false);}
     },
     optionsSuccessStatus: 200
 }
