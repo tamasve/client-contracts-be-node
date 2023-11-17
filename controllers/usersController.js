@@ -17,7 +17,7 @@ const createNewUser = async (req, res) => {
     
     try {
         const result = await User.create(
-            {username, password, email, active: false, roles}
+            {username, password, email, active: false, roles, "refreshToken": ""}
         );
         res.status(201).json(result);
     } catch (err) {

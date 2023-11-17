@@ -49,6 +49,7 @@ app.use(cookieParser());
 app.use('^/$', (req, res) => res.status(200).send("Root page"));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
+app.use('/logout', require('./routes/logout'));
 
 // Authenticated routes
 

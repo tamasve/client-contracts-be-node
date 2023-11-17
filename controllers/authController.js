@@ -5,17 +5,17 @@ const User = require('../model/User');
 
 const handleLogin = async (req, res) => {
 
-    if (!req.UserAuth) return res.status(400).json({message: "User authentication info is missing"});
+    console.log(req.body);
+    if (!req.body.UserAuth) return res.status(400).json({message: "User authentication info is missing"});
 
-    const {username, password} = req.UserAuth;
-
+    const {username, password} = req.body.UserAuth;
     if (!username || !password) return res.status(400).json({message: "Username and password required"});
 
     const user = await User.findOne({username}).exec();
     if (!user) return res.status(401).json({message: "No such username or password"});
 
     const pw = user.password;
-    if (pw !== password) res.status(401).json({message: "No such username or password"});
+    if (pw !== password) return res.status(401).json({message: "No such username or password"});
 
     // if user and pw OK, generate the tokens
 
@@ -40,10 +40,12 @@ const handleLogin = async (req, res) => {
     console.log(result);
 
     res.cookie('jwt', refreshToken,
-        { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24*60*60*1000 });
+        { httpOnly: true, sameSite: 'None', /*secure: true,*/ maxAge: 24*60*60*1000 });
+    res.cookie('happy', 'everyone');
+    console.log("cookie created")
     
     // send access token to FE
-    res.json({accessToken});
+    res.status(200).json({accessToken});
 
 }
 
