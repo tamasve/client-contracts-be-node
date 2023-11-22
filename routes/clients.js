@@ -3,7 +3,7 @@ const router = express.Router();
 const clientsController = require('../controllers/clientsController');
 const verifyRoles = require('../middleware/verifyRoles');
 
-router.route("/").get(/*verifyRoles("read"),*/ clientsController.getAllClients);
+router.route("/").get(verifyRoles("read"), clientsController.getAllClients);
 
 router.route("/new").post(verifyRoles("client", "write"), clientsController.createNewClient);
 

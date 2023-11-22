@@ -19,6 +19,7 @@ const clientsLoader = require('./utilities/clientsLoader');
 const contractsLoader = require('./utilities/contractsLoader');
 const mongoose = require("mongoose");
 const connectDB = require('./config/dbConn');
+const verifyJWT = require('./middleware/verifyJWT');
 
 const PORT = 3500;
 
@@ -30,14 +31,8 @@ console.log("server.js starts")
 connectDB();
 
 
-app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "http://localhost:3500/");
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
 // -- CUSTOM MIDDLEWARE --
-// app.use( credentials );     // to avoid CORS error: a special auxiliary, before CORS options (set CORS flag in req header)
+app.use( credentials );     // to avoid CORS error: a special auxiliary, before CORS options (set CORS flag in req header)
 app.use(cors(corsOptions));
 
 
@@ -59,10 +54,14 @@ app.use('/logout', require('./routes/logout'));
 
 // Authenticated routes
 
-app.use('/clients', require('./routes/clients'));
 app.use('/contracts', require('./routes/contracts'));
 app.use('/users', require('./routes/users'));
 app.use('/roles', require('./routes/roles'));
+
+app.use(verifyJWT);
+
+app.use('/clients', require('./routes/clients'));
+
 app.all("*", (req, res) => res.status(404).json({ error: "404 Page or Data Not Found" }));
 
 
