@@ -5,6 +5,7 @@ const User = require('../model/User');
 
 const handleRefreshToken = async (req, res) => {
 
+    console.log("-- access token refresh request --")
     console.log("cookies received:")
     console.log(req.cookies)
 
@@ -13,6 +14,7 @@ const handleRefreshToken = async (req, res) => {
 
     const user = await User.findOne({refreshToken}).exec();
     if (!user) return res.status(401).json({message: "No such authenticated user"});
+    console.log(`user: ${user.username}`);
 
     jwt.verify(
         refreshToken,
@@ -29,7 +31,7 @@ const handleRefreshToken = async (req, res) => {
                     "roles": user.roles}
                 },
                 process.env.ACCESS_TOKEN_SECRET,
-                { "expiresIn": '3m'}
+                { "expiresIn": '50s'}
             );
 
             // send access token to FE
