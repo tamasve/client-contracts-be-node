@@ -17,7 +17,7 @@ const clientsLoader = async () => {
         console.log("Load initial clients data...")
 
         // it reads xlsx as array of rows (0th is the header)
-        const rowsArray = await readXlsxFile(path.join(__dirname, "clients.xlsx"));
+        const rowsArray = await readXlsxFile(path.join(__dirname, "..", "data", "clients.xlsx"));
         
         // convert to an array of Client objects
         let table = arrrows2arrobj(rowsArray);
@@ -32,6 +32,8 @@ const clientsLoader = async () => {
                     console.error(err);
                 }
             });
+
+        console.log("Data loading ended")
     }
 
 }

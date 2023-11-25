@@ -1,7 +1,7 @@
 /**
  * THE BACK-END PART OF my 1st main JS full-stack project
- * 26-27 Oct, 8-13 Nov 2023
- * Last mod.: 13 Nov 2023
+ * 26-27 Oct, 8-13, 17, 24 Nov 2023
+ * Last mod.: 24 Nov 2023
  */
 
 require('dotenv').config();
@@ -72,6 +72,6 @@ mongoose.connection.once('open', () => {
 
     // -- Init. DATA LOADINGS from Excel for the first time --
     clientsLoader();
-    // contractsLoader();
+    contractsLoader();
     app.listen(PORT, () => console.log(`Clients-contracts server running on port ${PORT}`));
 })

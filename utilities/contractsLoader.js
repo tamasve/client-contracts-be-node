@@ -12,12 +12,12 @@ const contractsLoader = async () => {
     const contracts = await Contract.find();
     console.log(`number of contracts in DB: ${contracts.length}`);
 
-    if (!contracts) {       // it saves contracts only if there's no record at all
+    if (contracts.length === 0) {       // it saves contracts only if there's no record at all
     
         console.log("Load initial contracts data...")
 
         // it reads xlsx as array of rows (0th is the header)
-        const rowsArray = await readXlsxFile(path.join(__dirname, "contracts.xlsx"));
+        const rowsArray = await readXlsxFile(path.join(__dirname, "..", "data", "contracts.xlsx"));
         
         // convert to an array of Contract objects
         let table = arrrows2arrobj(rowsArray);
@@ -27,11 +27,12 @@ const contractsLoader = async () => {
             async (contract) => {
                 try {
                     const result = await Contract.create( {...contract} );
-                    console.log(result);
                 } catch (err) {
                     console.error(err);
                 }
             });
+
+        console.log("Data loading ended")
     }
 
 }
