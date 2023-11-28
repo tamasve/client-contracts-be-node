@@ -1,6 +1,7 @@
 const Contract = require('../model/Contract');
 
 const getAllContracts = async (req, res) => {
+    console.log("get all contracts");
     const contracts = await Contract.find();
     if (!contracts) return res.status(204).json( {"message": "No contract found"} )
     res.status(200).json(contracts);

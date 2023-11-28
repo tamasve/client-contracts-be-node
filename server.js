@@ -1,7 +1,7 @@
 /**
  * THE BACK-END PART OF my 1st main JS full-stack project
- * 26-27 Oct, 8-13, 17, 24 Nov 2023
- * Last mod.: 24 Nov 2023
+ * Nov 2023
+ * Last mod.: 25 Nov 2023
  */
 
 require('dotenv').config();
@@ -54,12 +54,12 @@ app.use('/logout', require('./routes/logout'));
 
 // Authenticated routes
 
-app.use('/contracts', require('./routes/contracts'));
 app.use('/users', require('./routes/users'));
 app.use('/roles', require('./routes/roles'));
 
 app.use(verifyJWT);
 
+app.use('/contracts', require('./routes/contracts'));
 app.use('/clients', require('./routes/clients'));
 
 app.all("*", (req, res) => res.status(404).json({ error: "404 Page or Data Not Found" }));

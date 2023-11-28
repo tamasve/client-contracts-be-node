@@ -43,7 +43,7 @@ const handleLogin = async (req, res) => {
     res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 3600000 });
     
     // send access token to FE
-    res.status(200).json({accessToken});
+    res.status(200).json({accessToken, username: user.username});   // send back also username to FE Redux auth. handler case reducer
 
 }
 

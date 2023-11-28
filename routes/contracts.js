@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const contractsController = require('../controllers/contractsController');
+const verifyRoles = require('../middleware/verifyRoles');
 
-router.get("/", contractsController.getAllContracts);
+router.route("/").get(verifyRoles("read"), contractsController.getAllContracts);
 
-router.post("/new", contractsController.createNewContract);
+router.route("/new").post(verifyRoles("contract", "write"), contractsController.createNewContract);
 
-router.route("/update/:id").put(contractsController.updateContract);
+router.route("/update/:id").put(verifyRoles("contract", "write"), contractsController.updateContract);
 
-router.route("/delete/:id").delete(contractsController.deleteContract);
+router.route("/delete/:id").delete(verifyRoles("contract", "delete"), contractsController.deleteContract);
 
 module.exports = router
