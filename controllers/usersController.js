@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const bcrypt = require('bcrypt');
 
 
 const getAllUsers = async (req, res) => {
@@ -12,12 +13,17 @@ const createNewUser = async (req, res) => {
     console.log(req.body);      // the new user data (check)
     const {username, password, email, roles} = req.body;  // extract user object from req. body
     
-    const canSave = [username, password, email, roles].every(Boolean)
-    if (!canSave) return res.status(400).json({'message': 'Every user property should be filled out'})
+    const canSave = [username, password, email, roles].every(Boolean);
+    if (!canSave) return res.status(400).json({'message': 'Every user property should be filled out'});
+
+    const duplicate = await User.findOne({username}).exec();
+    if (duplicate) return res.sendStatus(409);
+
     
     try {
+        const hashedPwd = await bcrypt.hash(password, 10);
         const result = await User.create(
-            {username, password, email, active: false, roles, "refreshToken": ""}
+            {username, hashedPwd, email, active: false, roles, "refreshToken": ""}
         );
         res.status(201).json(result);
     } catch (err) {

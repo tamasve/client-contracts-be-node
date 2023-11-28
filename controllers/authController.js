@@ -15,8 +15,8 @@ const handleLogin = async (req, res) => {
     const user = await User.findOne({username}).exec();
     if (!user) return res.status(401).json({message: "No such username or password"});
 
-    const pw = user.password;
-    if (pw !== password) return res.status(401).json({message: "No such username or password"});
+    const match = bcrypt.compare(password, user.password);
+    if (!match) return res.status(401).json({message: "No such username or password"});
 
     // if user and pw OK, generate the tokens
 
